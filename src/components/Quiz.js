@@ -9,15 +9,28 @@ const Quiz = () =>{
     console.log("quizState", quizState)
     return (
         <div className="quiz">
-            <div>
-                <div className="score">
-                    Question {quizState.currentQuestionIndex + 1}/{quizState.questions.length}
+            {quizState.showResult &&(
+                <div className="results">
+                    <div className="congratulations">Congratulations</div>
+                    <div className="results-info">
+                        <div>You have completed the quiz</div>
+                        <div>You've got 4 of {quizState.currentQuestionIndex.length}</div>
+                    </div>
+                    <div className="next-button" onClick={() => dispatch({type: "RESTART"})}>Restart</div>
+                </div>      
+
+            )}
+            {!quizState.showResult &&( 
+                <div>
+                    <div className="score">
+                        Question {quizState.currentQuestionIndex + 1}/{quizState.questions.length}
+                    </div>
+                    <Question />
+                    <div className="next-button" onClick={() => dispatch({type: "NEXT_QUESTION"})}>
+                        Next Question
+                    </div>
                 </div>
-                <Question />
-                <div className="next-button" onClick={() => dispatch({type: 'NEXT_QUESTION'})}>
-                    Next Question
-                </div>
-            </div>
+            )}
         </div>
         )
 };
